@@ -1,21 +1,3 @@
 #!/usr/bin/env bash
-# COmment
-
-# Get the listening ports using lsof with PID and program details
-listening_ports=$(lsof -i -P -n | awk '/LISTEN/ {print $1, $9}')
-
-# Print the header
-echo "Proto Local Address           PID/Program name"
-
-# Iterate over each listening port
-while read -r port_info; do
-    # Extract the protocol, local address, and program name
-    protocol=$(echo "$port_info" | awk '{print $1}')
-    local_address=$(echo "$port_info" | awk '{print $2}')
-    
-    # Extract the PID and program name from the last field
-    pid_program=$(echo "$port_info" | awk '{print $NF}')
-    
-    # Display the port information
-    echo "$protocol     $local_address     $pid_program"
-done <<< "$listening_ports"
+# Diplaying listening ports
+netstat -lp
