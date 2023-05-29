@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get the listening ports using netstat and filter out only TCP and UDP listening sockets
 listening_ports=$(netstat -tulnep 2>/dev/null | awk '/^tcp|^udp/ && /LISTEN/ {print $4, $7}')
