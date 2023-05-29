@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Get the listening ports using netstat and filter out only TCP and UDP listening sockets
+listening_ports=$(netstat -tulnep 2>/dev/null | awk '/^tcp|^udp/ && /LISTEN/ {print $4, $7}')
+
+# Iterate over each listening port
+while read -r port_info; do
+    # Extract the port and program details
+    port=$(echo "$port_info" | awk '{split($1, a, ":"); print a[length(a)]}')
+    program=$(echo "$port_info" | awk '{split($2, a, "/"); print a[length(a)]}')
+    pid=$(echo "$port_info" | awk '{split($2, a, "/"); print a[length(a)-1]}')
+
+    # Display the port, PID, and program name
+    echo "Port: $port, PID: $pid, Program: $program"
+done <<< "$listening_ports"
