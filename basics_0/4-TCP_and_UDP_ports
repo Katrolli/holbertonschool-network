@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# COmment
 
 # Get the listening ports using lsof with PID and program details
 listening_ports=$(lsof -i -P -n | awk '/LISTEN/ {print $1, $9}')
